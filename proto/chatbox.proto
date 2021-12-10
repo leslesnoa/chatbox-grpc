@@ -4,9 +4,20 @@ package chatbox;
 
 option go_package = "./pb";
 
+import "google/api/annotations.proto";
+
 service ChatBox {
-  rpc SendChat(ChatData) returns (Empty);
-  rpc GetChat(Empty) returns (ChatList);
+  rpc SendChat(ChatData) returns (Empty) {
+    option (google.api.http) = {
+      post: "/v1/chat/send"
+      body: "*"
+    };
+  };
+  rpc GetChat(Empty) returns (ChatList) {
+    option (google.api.http) = {
+      get: "/v1/chat/list"
+    };
+  };
 }
 
 message Empty {

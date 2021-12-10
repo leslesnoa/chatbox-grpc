@@ -81,7 +81,7 @@
       // ユーザー名とメッセージをPostでAPIに送ります。
       $('#post').on('click', function () {
         if ($('#name').val() == '' || $('#message').val() == '') return;
-        $.post('http://localhost:1323/chat', {
+        $.post('http://localhost:8081/v1/chat/send', {
           "name": $('#name').val(),
           "text": $('#message').val()
         })
@@ -96,12 +96,12 @@
       // APIをGETメソッドで叩いてます。戻り値はJSONで、そのJSONを解析して、
       // <div id="chat-body"></div>の中にDOMを突っ込んでいます。
       $('#reload').on('click', function () {
-        $.getJSON('http://127.0.0.1:1323/chat')
+        $.getJSON('http://localhost:8081/v1/chat/list')
           .done((data) => {
-            console.log(`resdata: ${JSON.stringify(data.chat_list)}`)
+            console.log(`resdata: ${JSON.stringify(data)}`)
             $("#chat-body").empty();
 
-            data.chat_list.forEach(list => {
+            data.chatList.forEach(list => {
               $('#chat-body').append(
                 $('<div class="chat-box" />').append(
                   $('<div class="chat-face">').append(
