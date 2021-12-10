@@ -2,6 +2,35 @@ version: '3.8'
 
 services:
 
+  app:
+    image: grpc_server:v1.0.1
+    environment:
+      DB_HOST: testdb
+      DB_USER: test
+      DB_PASSWORD: test
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - "./server:/chatbox-grpc/server"
+      - "./proto:/chatbox-grpc/proto"
+    ports:
+      - "9090:9090"
+    tty: true
+    links:
+      - "db"
+
+  gateway:
+    build: .
+    environment:
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - "./gateway:/chatbox-grpc/gateway"
+      - "./proto:/chatbox-grpc/proto"
+    ports:
+      - "8081:8081"
+    tty: true
+    links:
+      - "app"
+
   db:
     image: mysql:8.0.27
     restart: always

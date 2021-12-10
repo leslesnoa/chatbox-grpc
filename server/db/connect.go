@@ -23,7 +23,7 @@ func Connect() *sql.DB {
 	log.Println("start dbConnectFunc.")
 	user := "test"
 	password := "test"
-	host := "localhost"
+	host := "db"
 	port := "3306"
 	dbName := "testdb"
 
