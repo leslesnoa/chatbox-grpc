@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package chatbox;
+
+option go_package = "./pb";
+
+service ChatBox {
+  rpc SendChat(ChatData) returns (Empty);
+  rpc GetChat(Empty) returns (ChatList);
+}
+
+message Empty {
+}
+
+message ChatData {
+  int32 id = 1;
+  string name = 2;
+  string text = 3;
+}
+
+message ChatList {
+  repeated ChatData chat_list = 1;
+}
