@@ -33,8 +33,8 @@ func run() error {
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	newMux := handlers.CORS(
 		handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}),
-		handlers.AllowedOrigins([]string{"http://127.0.0.1:5500"}),
-		handlers.AllowedHeaders([]string{"content-type", "x-foobar-key"}),
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedHeaders([]string{"*"}),
 	)(mux)
 	return http.ListenAndServe(":8081", newMux)
 }
